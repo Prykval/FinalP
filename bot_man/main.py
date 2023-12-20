@@ -14,7 +14,7 @@ def main():
 
     while True:
         user_input = input(
-            f"{Fore.RED}Введіть будь ласка команду: (або використай команду help){Style.RESET_ALL}\n").lower()
+            f"{Fore.GREEN}Введіть будь ласка команду: (або використай команду{Style.RESET_ALL} {Fore.RED}help{Style.RESET_ALL}{Fore.GREEN}){Style.RESET_ALL}\n").lower()
         if not user_input:
             print(helps())
         else:    

@@ -834,5 +834,5 @@ def show_logo():
     Логотип при запуску.
     """
     print("\n"
-            f"{Fore.CYAN}Вітання від команди PyGeniuses{Style.RESET_ALL}\n")
+            f"{Fore.CYAN}Вітання{Style.RESET_ALL} {Fore.RED}від {Style.RESET_ALL}{Fore.GREEN}команди{Style.RESET_ALL} {Fore.YELLOW}PyGeniuses{Style.RESET_ALL}\n")
       
