@@ -4,6 +4,7 @@ from colorama import Fore, Style, init
 from notes import Notes, Note, Tag, Body
 from sort import sort_fun
 import os.path
+import emoji
 
 init()
 
@@ -46,17 +47,17 @@ def add(args):
     if not args:
         return "Передайте ім'я контакту та номер телефону"
     elif not args[1:]:
-        return "Ви не передали номер телефону"
+        return "Ви не передали номер телефону🙁"
 
     name = args[0].capitalize()
     phone = args[1:][0]
 
     if name in PHONE_BOOK:
-        return f"{name} вже у словнику"
+        return f"😀{name} вже у словнику"
 
     PHONE_BOOK.add_record(Record(name))
     PHONE_BOOK[name].add_information(PHONE_BOOK[name].phones, Phone(phone))
-    return f"{name} was added with {phone}"
+    return f"😀{name} was added with {phone}"
 
 
 @input_error
@@ -72,15 +73,15 @@ def add_address(args):
     address = ' '.join(args[1:])
 
     if name not in PHONE_BOOK:
-        return f" {name} імя не знайдено в словнику"
+        return f" 🙁{name} імя не знайдено в словнику"
 
     if address:
         PHONE_BOOK[name].add_information(PHONE_BOOK[name].address, AddressContact(address))
-        return f" {address} was added to {name}"
+        return f" 😀{address} was added to {name}"
 
     user_address = input("Введіть адресу: ")
     PHONE_BOOK[name].add_information(PHONE_BOOK[name].address, AddressContact(user_address))
-    return f" {user_address} was added to {name}"
+    return f" 😀{user_address} was added to {name}"
 
 
 @input_error
@@ -98,15 +99,15 @@ def add_phone(args):
         phone = args[1:][0]
 
     if name not in PHONE_BOOK:
-        return f"{name} імя не знайдено в словнику"
+        return f"🙁{name} імя не знайдено в словнику"
 
     if phone:
         PHONE_BOOK[name].add_information(PHONE_BOOK[name].phones, Phone(phone))
-        return f" {phone} was added to {name}"
+        return f" 😀{phone} was added to {name}"
 
     user_phone = input("Введіть телефон: ")
     PHONE_BOOK[name].add_information(PHONE_BOOK[name].phones, Phone(user_phone))
-    return f" {user_phone} was added to {name}"
+    return f" 😀{user_phone} was added to {name}"
 
 
 @input_error
@@ -125,15 +126,15 @@ def add_birthday(args):
         birthday = args[1:][0]
 
     if name not in PHONE_BOOK:
-        return f"{name} імя не знайдено в словнику"
+        return f"🙁{name} імя не знайдено в словнику"
 
     if birthday:
         PHONE_BOOK[name].add_birthday(birthday)
-        return f" {birthday} was added to {name}"
+        return f"😀 {birthday} was added to {name}"
 
     user_birthday = input("Введіть ДН: ")
     PHONE_BOOK[name].add_birthday(user_birthday)
-    return f" {user_birthday} was added to {name}"
+    return f" 😀{user_birthday} was added to {name}"
 
 
 @input_error
@@ -150,15 +151,15 @@ def add_email(args):
         email = args[1:][0]
 
     if name not in PHONE_BOOK:
-        return f"{name} імя не знайдено в словнику"
+        return f"🙁{name} імя не знайдено в словнику"
 
     if email:
         PHONE_BOOK[name].add_information(PHONE_BOOK[name].email_list, EmailContact(email))
-        return f" {email} was added to {name}"
+        return f" 😀{email} was added to {name}"
 
     user_email = input("Введіть email: ")
     PHONE_BOOK[name].add_information(PHONE_BOOK[name].email_list, EmailContact(user_email))
-    return f" {user_email} was added to {name}"
+    return f"😀{user_email} was added to {name}"
 
 
 @input_error
@@ -175,14 +176,14 @@ def change_birthday(args):
     new_date = args[1:][0]
 
     if name not in PHONE_BOOK:
-        return f"{name} імя не знайдено в словнику"
+        return f"😞{name} імя не знайдено в словнику"
 
     if PHONE_BOOK[name].birthday:
         PHONE_BOOK[name].birthday.value = new_date
-        return f"{name} birthday was changing to {new_date}"
+        return f"😀{name} birthday was changing to {new_date}"
 
     PHONE_BOOK[name].add_birthday(new_date)
-    return f"{new_date} was added to {name}"
+    return f"😀{new_date} was added to {name}"
 
 
 @input_error
@@ -196,7 +197,7 @@ def del_birthday(args):
     name = args[0].capitalize()
 
     if name not in PHONE_BOOK:
-        return f"{name} імя не знайдено в словнику"
+        return f"🙁{name} імя не знайдено в словнику"
 
     if PHONE_BOOK[name].birthday:
         PHONE_BOOK[name].birthday = None
@@ -222,17 +223,17 @@ def change_address(args):
         address = args[1:][0]
 
     if name not in PHONE_BOOK:
-        return f"{name} імя не знайдено в словнику"
+        return f"🙁{name} імя не знайдено в словнику"
 
     record = PHONE_BOOK[name]
 
     if address:
         record.change_information(AddressContact(address), record.address)
-        return f" {address} was changed to {name}"
+        return f"😀 {address} was changed to {name}"
 
     user_address = input("Введіть нову адресу: ")
     record.change_information(AddressContact(user_address), record.address)
-    return f" {user_address} was changed to {name}"
+    return f" 😀{user_address} was changed to {name}"
 
 
 @input_error
@@ -250,17 +251,17 @@ def change_phone(args):
         phone = args[1:][0]
 
     if name not in PHONE_BOOK:
-        return f"{name} імя не знайдено в словнику"
+        return f"🙁{name} імя не знайдено в словнику"
 
     record = PHONE_BOOK[name]
 
     if phone:
         record.change_information(Phone(phone), record.phones)
-        return f" {phone} was changed to {name}"
+        return f" 😀{phone} was changed to {name}"
 
     user_phone = input("Введіть телефон: ")
     record.change_information(Phone(user_phone), record.phones)
-    return f" {user_phone} was changed to {name}"
+    return f" 😀{user_phone} was changed to {name}"
 
 
 @input_error
@@ -277,17 +278,17 @@ def change_email(args):
         email = args[1:][0]
 
     if name not in PHONE_BOOK:
-        return f"{name} імя не знайдено в словнику"
+        return f"🙁{name} імя не знайдено в словнику"
 
     record = PHONE_BOOK[name]
 
     if email:
         record.change_information(EmailContact(email), record.email_list)
-        return f" {email} was changed to {name}"
+        return f" 😀{email} was changed to {name}"
 
     user_email = input("Введіть email: ")
     record.change_information(EmailContact(user_email), record.email_list)
-    return f" {user_email} was changed to {name}"
+    return f" 😀{user_email} was changed to {name}"
 
 
 @input_error
@@ -324,7 +325,7 @@ def search_contacts(args):
             result += show_contact([contact.name.value]) +'\n'
         return result
      
-    return f"no contacts with such request: {args[0]}"
+    return f"🙁no contacts with such request: {args[0]}"
 
 
 @input_error
@@ -357,7 +358,7 @@ def search_birthday(args):
     for contact in sorted_data:
         if sorted_data[contact] == 0:
             to_return.append(
-                f"У {contact} сьогодні день народження")
+                f"У {contact} сьогодні день народження🥳🥳🥳")
         elif sorted_data[contact] > 0:
             to_return.append(
                 f"{contact} має день народження через {data[contact]} дні")
@@ -379,7 +380,7 @@ def delete_address(args):
     name = args[0].capitalize()
 
     if name not in PHONE_BOOK:
-        return f"{name} ім'я не знайдено у словнику"
+        return f"{name} ім'я не знайдено у словнику🙁"
 
     record = PHONE_BOOK[name]
     result = record.delete_information(record.address)
@@ -398,7 +399,7 @@ def delete_phone(args):
     name = args[0].capitalize()
 
     if name not in PHONE_BOOK:
-        return f"{name} ім'я не знайдено у словнику"
+        return f"{name} ім'я не знайдено у словнику🙁"
 
     record = PHONE_BOOK[name]
     result = record.delete_information(record.phones)
@@ -418,7 +419,7 @@ def delete_email(name):
     name = name[0].title()
 
     if name not in PHONE_BOOK:
-        return f" {name} імя не знайдено в адресній книзі, ви можете додати {name} ввівши команду add."
+        return f" 😔{name} імя не знайдено в адресній книзі, ви можете додати {name} ввівши команду add."
 
     record = PHONE_BOOK[name]
     result = record.delete_information(record.email_list)
@@ -436,10 +437,10 @@ def delete_contact(args):
     name = args[0].capitalize()
 
     if name not in PHONE_BOOK:
-        return f"Контакту {name} немає у словнику."
+        return f"😔Контакту {name} немає у словнику."
 
     contact = PHONE_BOOK.delete_record(name)
-    return f"{contact} був видалений з книги"
+    return f"🙂{contact} був видалений з книги"
 
 
 def good_bye(*args):
@@ -447,7 +448,7 @@ def good_bye(*args):
     Функція для завершення роботи бота.
     """
     save()
-    print("See you latter")
+    print("See you latter👋🎅")
     quit()
 
 
@@ -496,7 +497,7 @@ def break_f(*args):
     """
     Коли користувач введе щось інше крім команд повертається строка про неправильний ввід команди.
     """
-    return f"Wrong enter... Try Help"
+    return f"Wrong enter☹️... Try Help👇"
 
 
 ####################################### NOTES #################################################
@@ -560,8 +561,8 @@ def change_note(args):
     """
     if not args:
         raise Exception('Ви не передали номеру нотатки та новий текст')
-    # elif not args[1:]:
-    #     raise Exception('Ви не передали новий текст')
+    elif not args[1:]:
+         raise Exception('Ви не передали новий текст')
 
     number = int(args[0])
     new_text = ' '.join(args[1:])
@@ -608,7 +609,7 @@ def change_tag(args):
 
     if action == "add":
         NOTES[int(number) - 1].add_tag(tag)
-        return 'Tag was added'
+        return '🙂 Tag was added'
     else:
         NOTES[int(number) - 1].del_tag(tag)
         return 'Tag was deleted'
@@ -657,7 +658,7 @@ def search_tag(args):
         if result:
             return result
         else:
-            return "нотаток не виявлено"
+            return "🙁 нотаток не виявлено"
     else:
         return "ви не вибрали жотдного тегу"
 
@@ -834,5 +835,5 @@ def show_logo():
     Логотип при запуску.
     """
     print("\n"
-            f"{Fore.CYAN}Вітання{Style.RESET_ALL} {Fore.RED}від {Style.RESET_ALL}{Fore.GREEN}команди{Style.RESET_ALL} {Fore.YELLOW}PyGeniuses{Style.RESET_ALL}\n")
+            f"👋🎅 {Fore.CYAN}Вітання{Style.RESET_ALL} {Fore.RED}від {Style.RESET_ALL}{Fore.GREEN}команди{Style.RESET_ALL} {Fore.YELLOW}PyGeniuses{Style.RESET_ALL}\n")
       
