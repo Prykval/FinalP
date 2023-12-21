@@ -182,7 +182,7 @@ class Record:
         Метод для редагування phone, address, email.
         """
         if not field:
-            return f"У контакту немає адреси."
+            return f"І куди же відправляти подаруночок?"
 
         elif len(field) == 1:
             field[0] = new_info
@@ -190,7 +190,7 @@ class Record:
 
         elif len(field) > 1:
             i = -1
-            print(f"Виберіть адресу контакту для редагування.")
+            print(f"Майже не туди відправив подарунок, виберіть адресу контакту для редагування.")
             for f in field:
                 i += 1
                 print(f"№  {i}  :  {f.value}")
@@ -281,7 +281,7 @@ class Phone(Field):
         """
         check_match = re.search(r"\+\d{12}", new_value)
         if not check_match:
-            raise Exception("phone must be in +380CCXXXXXXX format")
+            raise Exception("Ось, номер має бути +380CCXXXXXXX такого формату, дякую.")
         else:
             self.__value = new_value
 
@@ -303,7 +303,7 @@ class Birthday(Field):
             self.__value = date(year=int(value_splitted[2]), month=int(
                 value_splitted[1]), day=int(value_splitted[0]))
         else:
-            raise Exception("Birthday must be in DD.MM.YYYY format")
+            raise Exception("День народження - це важливий день. Введіть його вірно DD.MM.YYYY ось так")
 
     def __str__(self) -> str:
         return self.__value.strftime("%d.%m.%Y")
